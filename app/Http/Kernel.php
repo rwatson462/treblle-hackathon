@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\DenyInsecureRequestsInProduction;
 use App\Http\Middleware\JsonMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Treblle\Middlewares\TreblleMiddleware;
@@ -12,6 +13,7 @@ class Kernel extends HttpKernel
         JsonMiddleware::class,
         // \App\Http\Middleware\TrustHosts::class,
         TreblleMiddleware::class,
+        DenyInsecureRequestsInProduction::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,

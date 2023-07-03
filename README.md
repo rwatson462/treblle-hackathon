@@ -26,4 +26,6 @@ A phpunit test suite is included, just run `php artisan test` and watch the magi
 ### Security notes
 
 I've removed many parts of Laravel that are not related to the API - views, package.json, css/js files, etc.  
-Robots.txt has been updated to (hopefully) tell any crawlers to leave the site alone
+Robots.txt has been updated to (hopefully) tell any crawlers to leave the site alone.  
+Laravel supports Secure Connections, but the upgrading of those requests should be handled by the server software (Nginx, for example).
+However, I have put a check in for production that redirects to the secure site if you do visit an endpoint from `http`.
