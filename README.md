@@ -11,6 +11,8 @@ After checking out the repository, running the below commands should get you goi
 
 The code is also running at https://hackathon.source-pot.dev.
 
+### Tests
+A phpunit test suite is included, just run `php artisan test` and watch the magic.
 
 ### Endpoints
 
@@ -20,3 +22,8 @@ The code is also running at https://hackathon.source-pot.dev.
 4. Create table
 5. Add data to table
 6. Retrieve data from table
+
+### Security notes
+
+I've removed many parts of Laravel that are not related to the API - views, package.json, css/js files, etc.  
+Robots.txt has been updated to (hopefully) tell any crawlers to leave the site alone
