@@ -8,10 +8,14 @@ class RouteTest extends TestCase
 {
     public function test_requestToIndexReturnsNotFound(): void
     {
-        $this->get('/')
+        $response = $this->get('/')
             ->assertStatus(404);
 
-        $this->post('/')
+        $this->assertHeaders($response);
+
+        $response = $this->post('/')
             ->assertStatus(404);
+
+        $this->assertHeaders($response);
     }
 }

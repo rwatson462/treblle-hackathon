@@ -13,6 +13,7 @@ abstract class TestCase extends BaseTestCase
     protected function assertHeaders(TestResponse $response): void
     {
         $response->assertHeader('content-type', 'application/json');
+        $response->assertHeader('content-security-policy');
         // todo add the other headers here
     }
 }

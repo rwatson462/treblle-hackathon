@@ -12,7 +12,6 @@ class Kernel extends HttpKernel
     protected $middleware = [
         JsonMiddleware::class,
         // \App\Http\Middleware\TrustHosts::class,
-        TreblleMiddleware::class,
         DenyInsecureRequestsInProduction::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
@@ -50,6 +49,7 @@ class Kernel extends HttpKernel
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'treblle' => TreblleMiddleware::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }

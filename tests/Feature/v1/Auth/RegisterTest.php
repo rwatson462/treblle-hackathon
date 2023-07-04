@@ -15,6 +15,7 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertCreated();
+
         $this->assertHeaders($response);
     }
 }

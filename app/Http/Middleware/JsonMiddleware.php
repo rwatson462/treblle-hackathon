@@ -10,10 +10,13 @@ class JsonMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
+        // Transform request
         $request->headers->set('Accept', 'application/json');
+
+        // Continue with request
         $response = $next($request);
 
-        // Set secure response headers
+        // Transform response
         $response->headers->set('Allow', $request->method());
         $response->headers->set('Content-type', 'application/json');
         $response->headers->set('Accept', 'application/json');

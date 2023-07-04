@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
-    public function __invoke(RegisterRequest $request)
+    public function __invoke(RegisterRequest $request): AppResponse
     {
         // Check if user already exists
         if (User::where('email', $request->email)->exists()) {

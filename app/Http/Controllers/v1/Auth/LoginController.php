@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
-    public function __invoke(LoginRequest $request)
+    public function __invoke(LoginRequest $request): AppResponse
     {
         if (! Auth::attempt($request->validated())) {
             return new AppResponse([
