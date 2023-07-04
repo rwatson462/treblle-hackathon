@@ -15,7 +15,6 @@ class ProfileTest extends TestCase
             ->actingAs($user)
             ->get(route('v1.auth.profile'));
 
-        // todo restrict the data returned
         $response
             ->assertJsonFragment([
                 'id' => $user->id,

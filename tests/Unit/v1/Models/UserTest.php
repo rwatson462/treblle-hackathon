@@ -1,9 +1,8 @@
 <?php
 
-namespace tests\Unit\Models;
+namespace Tests\Unit\v1\Models;
 
 use App\Models\User;
-use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
 class UserTest extends TestCase

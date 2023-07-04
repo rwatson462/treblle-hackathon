@@ -4,6 +4,7 @@
  * Routes for VERSION 1 of this API
  */
 
+use App\Http\Controllers\Model\CreateController;
 use App\Http\Controllers\v1\Auth\LoginController;
 use App\Http\Controllers\v1\Auth\LogoutController;
 use App\Http\Controllers\v1\Auth\ProfileController;
@@ -19,5 +20,9 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
     Route::prefix('/auth')->group(function() {
         Route::post('/logout', LogoutController::class)->name('auth.logout');
         Route::get('/me', ProfileController::class)->name('auth.profile');
+    });
+
+    Route::prefix('/model')->as('model.')->group(function() {
+        Route::post('/create', CreateController::class)->name('create');
     });
 });
