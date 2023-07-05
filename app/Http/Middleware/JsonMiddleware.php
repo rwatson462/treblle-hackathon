@@ -25,7 +25,6 @@ class JsonMiddleware
         $response->headers->set('X-Frame-Options', 'deny');
         $response->headers->set('Content-Security-Policy', "default-src 'self'");
         $response->headers->remove('x-powered-by');
-        $response->headers->set('Content-encoding', 'gzip');
 
         return $response;
     }
