@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Model;
+namespace App\Http\Requests\v1\Model;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
@@ -12,6 +12,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'attributes' => 'required|array',
             'attributes.*' => 'string|max:255',
         ];
     }
