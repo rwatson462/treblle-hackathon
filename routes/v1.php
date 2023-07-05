@@ -9,6 +9,7 @@ use App\Http\Controllers\v1\Auth\LogoutController;
 use App\Http\Controllers\v1\Auth\ProfileController;
 use App\Http\Controllers\v1\Auth\RegisterController;
 use App\Http\Controllers\v1\Model\CreateController;
+use App\Http\Controllers\v1\Model\DeleteController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -24,5 +25,6 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
 
     Route::prefix('/model')->as('model.')->group(function() {
         Route::post('/create', CreateController::class)->name('create');
+        Route::delete('/', DeleteController::class)->name('delete');
     });
 });
