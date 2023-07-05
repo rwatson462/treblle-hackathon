@@ -31,4 +31,31 @@ class CreateModelTest extends TestCase
 
         $this->assertHeaders($response);
     }
+
+    public function test_cannotCreateSameModelTwice(): void
+    {
+        // Create model
+
+        // Create model with same name
+        // Expect error
+    }
+
+    public function test_cannotCreateModelWithInvalidValidatorParameters(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->post(route('v1.model.create', [
+                'name' => 'Dog',
+                'attributes' => [
+                    'name' => 'lgkjhdfgjld',
+                ],
+            ]));
+
+        $response
+            ->assertUnprocessable();
+
+        $this->assertHeaders($response);
+    }
 }

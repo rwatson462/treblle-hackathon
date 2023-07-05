@@ -19,9 +19,9 @@ A phpunit test suite is included, just run `php artisan test` and watch the magi
 1. Register
 2. Login
 3. Logout
-4. Create table
-5. Add data to table
-6. Retrieve data from table
+4. Create model
+5. Create instance of model
+6. Retrieve model instance
 
 ### Security notes
 

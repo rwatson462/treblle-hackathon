@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Http\Responses\AppResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
@@ -26,6 +27,12 @@ class Handler extends ExceptionHandler
             return new AppResponse([
                 'message' => 'not found',
             ], Response::HTTP_NOT_FOUND);
+        });
+
+        $this->renderable(function (ValidationException $e) {
+            return new AppResponse([
+                'message' => 'invalid parameters given'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         });
 
         /**
