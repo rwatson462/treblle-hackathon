@@ -69,9 +69,24 @@ Error response (deliberately not revealing which of email or password is incorre
 
 
 ---
+#### User profile: `GET /v1/auth/me`
+Requires bearer token obtained from Login endpoint.  
+
+Success response:
+```json
+{
+	"id": <uuid>,
+	"name": <name>,
+	"email": <email>
+}
+```
+
+The only error response for this endpoint is an unauthenticated response.
+
+
+---
 #### Logout: `POST v1/auth/logout`
 Requires a bearer token obtained from the login endpoint.
-
 
 Success response:
 ```json
@@ -85,6 +100,8 @@ The only error response returned is if the user fails to authenticate with the b
 
 ---
 #### Create a model: `POST v1/model`
+Requires bearer authentication.
+
 with JSON payload:
 ```json
 {
@@ -119,7 +136,8 @@ Error response (beyond scope of this exercise for individualised responses):
 
 ---
 #### List all models: `GET v1/model`
-Lists all models created by the authenticated user
+Lists all models created by the authenticated user.
+Requires bearer authentication.
 
 Success response:
 ```json
@@ -132,6 +150,26 @@ Success response:
     ]
 }
 ```
+---
+#### List model instances: `GET /v1/model/{model_uuid}`
+Lists all model instances for the given model.
+Requires bearer authentication.
+
+Success response:
+```json
+{
+	"models": [
+        {
+            "id": <string>,
+            ...attributes
+        }
+    ]
+}
+```
+
+Error response:
+404 if the model id does not link to a model that the user created (or that does not exist)
+
 
 ### Security notes
 

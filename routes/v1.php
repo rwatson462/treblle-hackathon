@@ -8,9 +8,6 @@ use App\Http\Controllers\v1\Auth\LoginController;
 use App\Http\Controllers\v1\Auth\LogoutController;
 use App\Http\Controllers\v1\Auth\ProfileController;
 use App\Http\Controllers\v1\Auth\RegisterController;
-use App\Http\Controllers\v1\Model\CreateController;
-use App\Http\Controllers\v1\Model\DeleteController;
-use App\Http\Controllers\v1\Model\ListController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -25,8 +22,9 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
     });
 
     Route::prefix('/model')->as('model.')->group(function() {
-        Route::post('/', CreateController::class)->name('create');
-        Route::delete('/', DeleteController::class)->name('delete');
-        Route::get('/', ListController::class)->name('list');
+        Route::post('/', App\Http\Controllers\v1\Model\CreateController::class)->name('create');
+        Route::delete('/', App\Http\Controllers\v1\Model\DeleteController::class)->name('delete');
+        Route::get('/', App\Http\Controllers\v1\Model\ListController::class)->name('list');
+        Route::get('/{uuid}', \App\Http\Controllers\v1\Instance\ListController::class)->name('instance');
     });
 });
