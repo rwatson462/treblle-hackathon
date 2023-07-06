@@ -202,3 +202,54 @@ Robots.txt has been updated to (hopefully) tell any crawlers to leave the site a
 While Laravel supports Secure Connections, the upgrading of those requests should be handled by the server software (Nginx, for example).
 I have added some middleware that will deny access to any endpoints if accessed through `http` (as opposed to `https`), but only for the Production environment.
 See `App\Http\Middleware\DenyInsecureRequestsInProduction`.
+
+
+### Examples
+
+Here are some examples to use the application:
+Register:
+`POST /v1/auth/register`
+```json
+{
+    "name": "User",
+    "email": "user@example.com",
+    "password": "password"
+}
+```
+
+Login:
+`POST /v1/auth/login`
+```json
+{
+    "email": "user@example.com",
+    "password": "password"
+}
+```
+Note token returned
+
+Create a model:
+`POST /v1/model`
+```json
+{
+    "name": "people",
+    "attributes": {
+      "name": "required|string|max:255",
+      "position": "required|in:director,manager,team_member"
+    }
+}
+```
+Note model ID returned
+
+Create a model instance:
+`POST /v1/model/{model_id}`  
+The data posted here must match the "attributes" array given when creating the model
+```json
+{
+    "name": "Rob",
+    "position": "director"
+}
+```
+
+List all instances for the model:
+`GET /v1/model/{model_id}`
+See the model you created a minute ago :)
