@@ -151,6 +151,19 @@ Success response:
 }
 ```
 ---
+#### Delete a model: `DELETE /v1/model/{uuid}`
+Requires Bearer Auth token
+
+Success Response:
+```json
+{
+  "message": "deleted"
+}
+```
+
+Errors:
+404 if the model doesn't exist or was not created by the authenticated user
+
 #### List model instances: `GET /v1/model/{model_uuid}`
 Lists all model instances for the given model.
 Requires bearer authentication.
