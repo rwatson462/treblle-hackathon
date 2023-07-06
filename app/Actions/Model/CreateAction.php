@@ -14,7 +14,7 @@ final readonly class CreateAction
                 ...$modelData,
                 'user_id' => auth()->user()->id,
             ])->id;
-        } catch (\Throwable $t) {
+        } catch (\PDOException $t) {
             throw new DuplicateModelException($t->getMessage());
         }
     }
