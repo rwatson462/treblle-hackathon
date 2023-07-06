@@ -169,7 +169,30 @@ Success response:
 
 Error response:
 404 if the model id does not link to a model that the user created (or that does not exist)
+#### Create a model instance: `POST /v1/model/{model_uuid}`
+Requires bearer authentication.
 
+With JSON payload:
+```json
+{
+    ...attributes given when creating the model
+}
+```
+
+Success response:
+```json
+{
+    "message": "created",
+    "instance_id": <uuid>
+}
+```
+
+Error response (if validation fails, again deliberately vague):
+```json
+{
+	"message": "invalid parameters given"
+}
+```
 
 ### Security notes
 

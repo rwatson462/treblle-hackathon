@@ -16,7 +16,7 @@ class ListInstancesTest extends TestCase
         $model = HeadlessModel::factory()->create();
 
         $response = $this
-            ->get(route('v1.model.instance', $model->id));
+            ->get(route('v1.model.instance.list', $model->id));
 
         $response->assertUnauthorized();
 
@@ -27,7 +27,7 @@ class ListInstancesTest extends TestCase
     {
         $response = $this
             ->actingAs(User::factory()->create())
-            ->get(route('v1.model.instance', Uuid::uuid4()));
+            ->get(route('v1.model.instance.list', Uuid::uuid4()));
 
         $response
             ->assertNotFound();
@@ -47,7 +47,7 @@ class ListInstancesTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get(route('v1.model.instance', $model->id));
+            ->get(route('v1.model.instance.list', $model->id));
 
         $response
             ->assertOk()
@@ -78,7 +78,7 @@ class ListInstancesTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get(route('v1.model.instance', $model->id));
+            ->get(route('v1.model.instance.list', $model->id));
 
         $response
             ->assertOk()
@@ -97,7 +97,7 @@ class ListInstancesTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get(route('v1.model.instance', $model->id));
+            ->get(route('v1.model.instance.list', $model->id));
 
         $response
             ->assertNotFound();
