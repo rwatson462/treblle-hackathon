@@ -29,6 +29,10 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
         Route::prefix('/{uuid}')->as('instance.')->group(function() {
             Route::get('/', \App\Http\Controllers\v1\Instance\ListController::class)->name('list');
             Route::post('/', \App\Http\Controllers\v1\Instance\CreateController::class)->name('create');
+
+            Route::prefix('{instance_uuid}')->group(function () {
+                Route::get('/', \App\Http\Controllers\v1\Instance\GetController::class)->name('get');
+            });
         });
 
     });
