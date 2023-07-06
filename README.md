@@ -194,6 +194,14 @@ Error response (if validation fails, again deliberately vague):
 }
 ```
 
+Error response (if trying to create an instance on someone else's model):  
+I ran out of time to make this fancy.
+```json
+{
+	"message": "This action is unauthorized."
+}
+```
+
 ### Security notes
 
 I've removed many parts of Laravel that are not related to the API - views, package.json, css/js files, etc.  
