@@ -23,7 +23,7 @@ class CreateRequest extends FormRequest
          * For our simple purposes, we'll just make sure that the validation method
          * exists on the validator instance, e.g. $validator->required()
          */
-        foreach ($this->validated()['attributes'] as $rules) {
+        foreach ($this->validated('attributes') as $rules) {
             foreach (explode('|', $rules) as $rule) {
                 $rule = ValidationRuleParser::parse($rule)[0] ?? null;
                 if (!method_exists($this->getValidatorInstance(), "validate$rule")) {

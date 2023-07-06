@@ -2,6 +2,8 @@
 
 return [
 
+    'token_timeout' => env('AUTH_TOKEN_LIFETIME'),
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
