@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
+use App\Events\v1\Auth\UserLoggedIn;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\Auth\LoginRequest;
 use App\Http\Responses\AppResponse;
@@ -19,6 +20,8 @@ class LoginController extends Controller
                 'message' => 'invalid email/password combination',
             ], Response::HTTP_UNAUTHORIZED);
         }
+
+        event(new UserLoggedIn(auth()->user()));
 
         $expiry = now()->addHours(1);
         $token = request()->user()->createToken(
