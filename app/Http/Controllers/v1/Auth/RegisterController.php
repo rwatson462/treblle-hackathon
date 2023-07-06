@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
+use App\Actions\Auth\RegisterAction;
+use App\Exceptions\DuplicateModelException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\Auth\RegisterRequest;
 use App\Http\Responses\AppResponse;
-use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
-    public function __invoke(RegisterRequest $request): AppResponse
+    public function __invoke(RegisterRequest $request, RegisterAction $registerUserAction): AppResponse
     {
-        // Check if user already exists
-        if (User::where('email', $request->email)->exists()) {
+        try {
+
+            return new AppResponse([
+                'message' => 'success',
+                'user_id' => $registerUserAction->execute($request->validated()),
+            ], Response::HTTP_CREATED);
+
+        } catch (DuplicateModelException) {
+
             return new AppResponse([
                 'message' => 'error registering user',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
+
         }
-
-        // Create user
-        $user = User::create($request->validated());
-
-        // Return success
-        return new AppResponse([
-            'message' => 'success',
-            'user_id' => $user->id,
-        ], Response::HTTP_CREATED);
     }
 }

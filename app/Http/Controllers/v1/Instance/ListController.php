@@ -7,15 +7,14 @@ use App\Http\Resources\v1\Model\HeadlessModelInstanceResource;
 use App\Http\Responses\AppResponse;
 use App\Models\HeadlessModel;
 use App\Models\HeadlessModelInstance;
+use App\Repositories\HeadlessModelRepository;
 use Illuminate\Http\Request;
 
-class ListController extends Controller
+final class ListController extends Controller
 {
-    public function __invoke(string $uuid)
+    public function __invoke(string $uuid, HeadlessModelRepository $repository)
     {
-        // Todo: (out of scope for this exercise) - implement a Repository to fetch the model instance
-
-        $model = HeadlessModel::findOrFail($uuid);
+        $model = $repository->findById($uuid);
 
         return new AppResponse([
             'models' => HeadlessModelInstanceResource::collection($model->instances),

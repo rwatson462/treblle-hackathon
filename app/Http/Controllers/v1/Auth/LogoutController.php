@@ -11,7 +11,8 @@ class LogoutController extends Controller
 {
     public function __invoke(): AppResponse
     {
-        auth()->user()->tokens()->delete();
+        // Todo: only invalidate the token currently being used (i.e. that which was passed in via Bearer Auth)
+        auth()->user()->tokens()->where('expires_at', '>', now())->delete();
 
         return new AppResponse([
             'message' => 'logged out',

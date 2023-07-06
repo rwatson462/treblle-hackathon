@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
 
     Route::prefix('/model')->as('model.')->group(function() {
         Route::post('/', App\Http\Controllers\v1\Model\CreateController::class)->name('create');
-        Route::delete('/', App\Http\Controllers\v1\Model\DeleteController::class)->name('delete');
+        Route::delete('/{uuid}', App\Http\Controllers\v1\Model\DeleteController::class)->name('delete');
         Route::get('/', App\Http\Controllers\v1\Model\ListController::class)->name('list');
 
         Route::prefix('/{uuid}')->as('instance.')->group(function() {
