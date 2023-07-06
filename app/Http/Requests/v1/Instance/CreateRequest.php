@@ -7,15 +7,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
 {
-    private HeadlessModel $model;
+    private ?HeadlessModel $model;
 
     public function authorize(): bool
     {
         // This will handily throw a 404 if the model doesn't belong to the user
-        $this->model = HeadlessModel::findOrFail($this->route('uuid'));
+        $this->model = HeadlessModel::find($this->route('uuid'));
 
         // So if we get here, the request is allowed to continue
-        return true;
+        return !!$this->model;
     }
 
     public function rules(): array

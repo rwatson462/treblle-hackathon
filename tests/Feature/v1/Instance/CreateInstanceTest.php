@@ -74,7 +74,7 @@ class CreateInstanceTest extends TestCase
             ]);
 
         $response
-            ->assertNotFound();
+            ->assertForbidden();
 
         $this->assertHeaders($response);
     }
