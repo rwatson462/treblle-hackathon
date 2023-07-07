@@ -151,6 +151,19 @@ Success response:
 }
 ```
 ---
+#### Delete a model: `DELETE /v1/model/{uuid}`
+Requires Bearer Auth token
+
+Success Response:
+```json
+{
+  "message": "deleted"
+}
+```
+
+Errors:
+404 if the model doesn't exist or was not created by the authenticated user
+
 #### List model instances: `GET /v1/model/{model_uuid}`
 Lists all model instances for the given model.
 Requires bearer authentication.
@@ -201,6 +214,25 @@ I ran out of time to make this fancy.
 	"message": "This action is unauthorized."
 }
 ```
+#### Get a single model instance: `GET /model/{model_uuid}/{instance_uuid}`
+Requires bearer authentication token
+
+Success response:
+```json
+{
+    "model": {
+        "id": <uuid>,
+        "name": <string>
+    },
+    "instance": {
+        "id": <uuid>,
+        ...other attributes as previously created
+    }
+}
+```
+
+Error response:
+404 if the model is not found, the instance is not found, or the model was not created by the user
 
 ### Security notes
 

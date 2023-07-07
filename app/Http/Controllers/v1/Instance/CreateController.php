@@ -2,25 +2,19 @@
 
 namespace App\Http\Controllers\v1\Instance;
 
+use App\Actions\Instance\CreateAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\Instance\CreateRequest;
 use App\Http\Responses\AppResponse;
-use App\Models\HeadlessModelInstance;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateController extends Controller
+final class CreateController extends Controller
 {
-    public function __invoke(CreateRequest $request, string $uuid)
+    public function __invoke(CreateRequest $request, string $uuid, CreateAction $createAction)
     {
-        $instance = HeadlessModelInstance::create([
-            'model_id' => $uuid,
-            'attributes' => $request->validated(),
-        ]);
-
         return new AppResponse([
             'message' => 'created',
-            'instance_id' => $instance->id,
+            'instance_id' => $createAction->execute($uuid, $request->validated()),
         ], Response::HTTP_CREATED);
     }
 }

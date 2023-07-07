@@ -41,9 +41,7 @@ class DeleteModelTest extends TestCase
         // Delete model
         $response = $this
             ->actingAs($user)
-            ->delete(route('v1.model.delete'), [
-                'model_id' => $modelId,
-            ]);
+            ->delete(route('v1.model.delete', $modelId));
 
         // Assert
         $response

@@ -23,12 +23,16 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
 
     Route::prefix('/model')->as('model.')->group(function() {
         Route::post('/', App\Http\Controllers\v1\Model\CreateController::class)->name('create');
-        Route::delete('/', App\Http\Controllers\v1\Model\DeleteController::class)->name('delete');
+        Route::delete('/{uuid}', App\Http\Controllers\v1\Model\DeleteController::class)->name('delete');
         Route::get('/', App\Http\Controllers\v1\Model\ListController::class)->name('list');
 
         Route::prefix('/{uuid}')->as('instance.')->group(function() {
             Route::get('/', \App\Http\Controllers\v1\Instance\ListController::class)->name('list');
             Route::post('/', \App\Http\Controllers\v1\Instance\CreateController::class)->name('create');
+
+            Route::prefix('{instance_uuid}')->group(function () {
+                Route::get('/', \App\Http\Controllers\v1\Instance\GetController::class)->name('get');
+            });
         });
 
     });
