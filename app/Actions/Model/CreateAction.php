@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Actions\Model;
+namespace App\Actions\Model;
 
 use App\Exceptions\DuplicateModelException;
 use App\Models\HeadlessModel;
