@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1\Auth;
 
 use App\Actions\Auth\RegisterAction;
+use App\Events\v1\Auth\UserRegistered;
 use App\Exceptions\DuplicateModelException;
 use App\Http\Requests\v1\Auth\RegisterRequest;
 use App\Http\Responses\AppResponse;
