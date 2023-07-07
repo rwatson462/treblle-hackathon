@@ -9,7 +9,7 @@ class HeadlessInstanceRepository
 {
     public function findById(string $id): HeadlessModelInstance
     {
-        // Note: Because the HeadlessModel has a scope that restricts to the logged-in user, this is tenant-safe
+        // Note: adding whereHas('model') applies the tenant scope for us
         /** @var ?HeadlessModelInstance $model */
         $model = HeadlessModelInstance::query()
             ->where('id', $id)
@@ -22,5 +22,20 @@ class HeadlessInstanceRepository
         }
 
         return $model;
+    }
+
+    public function delete(string $id): void
+    {
+        // Note: adding whereHas('model') applies the tenant scope for us
+        $instance = HeadlessModelInstance::query()
+            ->where('id', $id)
+            ->whereHas('model')
+            ->first();
+
+        if ($instance === null) {
+            throw new ModelNotFoundException();
+        }
+
+        $instance->delete();
     }
 }

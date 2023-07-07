@@ -20,4 +20,11 @@ class HeadlessModelTest extends TestCase
 
         $this->assertInstanceOf(HeadlessModel::class, $model);
     }
+
+    public function test_canGetModelInstances(): void
+    {
+        $model = HeadlessModel::factory()->hasInstances(3)->create();
+
+        $this->assertCount(3, $model->instances);
+    }
 }

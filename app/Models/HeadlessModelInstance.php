@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * @property string $id
  * @property HeadlessModel $model
  * @property array $attributes
+ * @property User $user
  */
 class HeadlessModelInstance extends Model
 {
@@ -28,6 +30,18 @@ class HeadlessModelInstance extends Model
             related: HeadlessModel::class,
             foreignKey: 'id',
             localKey: 'model_id'
+        );
+    }
+
+    public function user(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            related: User::class,
+            through: HeadlessModel::class,
+            firstKey: 'id',
+            secondKey: 'id',
+            localKey: 'model_id',
+            secondLocalKey: 'user_id',
         );
     }
 }
