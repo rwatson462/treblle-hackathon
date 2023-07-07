@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers\v1\Instance;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\Model\HeadlessModelInstanceResource;
 use App\Http\Responses\AppResponse;
-use App\Models\HeadlessModel;
-use App\Models\HeadlessModelInstance;
+use App\Http\Responses\Instance\ListResponse;
 use App\Repositories\HeadlessModelRepository;
-use Illuminate\Http\Request;
 
-final class ListController extends Controller
+final class ListController
 {
-    public function __invoke(string $uuid, HeadlessModelRepository $repository)
+    public function __invoke(string $uuid, HeadlessModelRepository $repository): AppResponse
     {
-        $model = $repository->findById($uuid);
+        $model = $repository->findById($uuid)->load('instances');
 
-        return new AppResponse([
-            'models' => HeadlessModelInstanceResource::collection($model->instances),
-        ]);
+        return ListResponse::make($model->instances);
     }
 }

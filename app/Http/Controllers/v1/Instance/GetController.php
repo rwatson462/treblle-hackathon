@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers\v1\Instance;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\Model\HeadlessModelInstanceResource;
-use App\Http\Resources\v1\Model\HeadlessModelResource;
 use App\Http\Responses\AppResponse;
+use App\Http\Responses\Instance\GetResponse;
 use App\Repositories\HeadlessInstanceRepository;
 
-
-final class GetController extends Controller
+final class GetController
 {
-    public function __invoke(string $uuid, string $instance_uuid, HeadlessInstanceRepository $repository)
+    public function __invoke(string $uuid, string $instance_uuid, HeadlessInstanceRepository $repository): AppResponse
     {
         $instance = $repository->findById($instance_uuid);
 
-        return new AppResponse([
-            'instance' => new HeadlessModelInstanceResource($instance),
-            'model' => new HeadlessModelResource($instance->model),
-        ]);
+        return GetResponse::make($instance);
     }
 }

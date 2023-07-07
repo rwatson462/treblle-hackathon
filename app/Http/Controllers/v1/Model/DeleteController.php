@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\v1\Model;
 
 use App\Actions\Model\DeleteAction;
-use App\Http\Controllers\Controller;
 use App\Http\Responses\AppResponse;
-use Symfony\Component\HttpFoundation\Response;
+use App\Http\Responses\Model\DeletedResponse;
 
-class DeleteController extends Controller
+class DeleteController
 {
-    public function __invoke(string $uuid, DeleteAction $deleteAction)
+    public function __invoke(string $uuid, DeleteAction $deleteAction): AppResponse
     {
         $deleteAction->execute($uuid);
 
-        return new AppResponse([
-            'message' => 'deleted',
-        ], Response::HTTP_OK);
+        return DeletedResponse::make();
     }
 }

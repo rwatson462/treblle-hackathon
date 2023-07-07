@@ -14,4 +14,11 @@ class UserTest extends TestCase
         $this->assertInstanceOf(User::class, $user);
         $this->assertIsString($user->id);
     }
+
+    public function test_canGetHeadlessModels(): void
+    {
+        $user = User::factory()->hasModels(3)->create();
+
+        $this->assertCount(3, $user->models);
+    }
 }

@@ -7,7 +7,7 @@ use App\Http\Resources\v1\Auth\UserResource;
 use App\Http\Responses\AppResponse;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class ProfileController
 {
     public function __invoke(): AppResponse
     {

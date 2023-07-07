@@ -15,7 +15,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', LoginController::class)->name('auth.login');
 });
 
-Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
+Route::middleware(['auth:sanctum', \Treblle\Middlewares\TreblleMiddleware::class])->group(function() {
     Route::prefix('/auth')->group(function() {
         Route::post('/logout', LogoutController::class)->name('auth.logout');
         Route::get('/me', ProfileController::class)->name('auth.profile');
@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum', 'treblle'])->group(function() {
 
             Route::prefix('{instance_uuid}')->group(function () {
                 Route::get('/', \App\Http\Controllers\v1\Instance\GetController::class)->name('get');
+                Route::delete('/', \App\Http\Controllers\v1\Instance\DeleteController::class)->name('delete');
             });
         });
 

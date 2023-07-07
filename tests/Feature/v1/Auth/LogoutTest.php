@@ -28,6 +28,8 @@ class LogoutTest extends TestCase
             ->withHeader('Authorization', 'Bearer ' . $response->json('token'))
             ->post(route('v1.auth.logout'));
 
+        $user->refresh();
+
         $this->assertEquals(0, $user->tokens()->count());
 
         // make authenticated request, expect unauthorised response
