@@ -8,6 +8,9 @@ use Illuminate\Validation\ValidationRuleParser;
 
 class CreateRequest extends FormRequest
 {
+    /**
+     * @return array<string,string>
+     */
     public function rules(): array
     {
         return [
@@ -23,7 +26,11 @@ class CreateRequest extends FormRequest
          * For our simple purposes, we'll just make sure that the validation method
          * exists on the validator instance, e.g. $validator->required()
          */
-        foreach ($this->validated('attributes') as $rules) {
+
+        /** @var array<string,string> $validated */
+        $validated = $this->validated('attributes');
+
+        foreach ($validated as $rules) {
             foreach (explode('|', $rules) as $rule) {
                 $rule = ValidationRuleParser::parse($rule)[0] ?? null;
                 if (!method_exists($this->getValidatorInstance(), "validate$rule")) {

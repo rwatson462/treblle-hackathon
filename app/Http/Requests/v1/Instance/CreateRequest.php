@@ -18,8 +18,13 @@ class CreateRequest extends FormRequest
         return !!$this->model;
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function rules(): array
     {
+        assert($this->model !== null);
+
         return $this->model->attributes;
     }
 }

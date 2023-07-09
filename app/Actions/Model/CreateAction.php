@@ -2,19 +2,22 @@
 
 namespace App\Actions\Model;
 
+use App\DataTransferObjects\Requests\Model\CreateRequestDto;
 use App\Exceptions\DuplicateModelException;
 use App\Models\HeadlessModel;
+use App\Models\User;
+use PDOException;
 
 final readonly class CreateAction
 {
-    public function execute(array $modelData): string
+    public function execute(CreateRequestDto $modelData, User $authUser): string
     {
         try {
             return HeadlessModel::create([
-                ...$modelData,
-                'user_id' => auth()->user()->id,
+                ...$modelData->toArray(),
+                'user_id' => $authUser->id,
             ])->id;
-        } catch (\PDOException $t) {
+        } catch (PDOException $t) {
             throw new DuplicateModelException($t->getMessage());
         }
     }

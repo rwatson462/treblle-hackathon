@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\v1\Instance;
 
 use App\Http\Controllers\Controller;
+use App\Http\Responses\AppResponse;
 use App\Http\Responses\Instance\DeletedResponse;
 use App\Repositories\HeadlessInstanceRepository;
 
 class DeleteController extends Controller
 {
-    public function __invoke(HeadlessInstanceRepository $repository, string $uuid, string $instance_uuid)
+    public function __invoke(HeadlessInstanceRepository $repository, string $uuid, string $instance_uuid): AppResponse
     {
         $repository->delete($instance_uuid);
 

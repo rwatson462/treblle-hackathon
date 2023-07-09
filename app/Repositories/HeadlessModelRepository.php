@@ -13,6 +13,9 @@ class HeadlessModelRepository
         return HeadlessModel::findOrFail($id);
     }
 
+    /**
+     * @return Collection<int, HeadlessModel>
+     */
     public function getAll(): Collection
     {
         // This call is automatically tenanted by a global scope

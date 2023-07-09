@@ -24,6 +24,9 @@ class HeadlessModelInstance extends Model
         'attributes' => 'json',
     ];
 
+    /**
+     * @return HasOne<HeadlessModel>
+     */
     public function model(): HasOne
     {
         return $this->hasOne(
@@ -33,6 +36,9 @@ class HeadlessModelInstance extends Model
         );
     }
 
+    /**
+     * @return HasOneThrough<User>
+     */
     public function user(): HasOneThrough
     {
         return $this->hasOneThrough(

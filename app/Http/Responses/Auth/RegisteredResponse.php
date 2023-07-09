@@ -3,14 +3,15 @@
 namespace App\Http\Responses\Auth;
 
 use App\Http\Responses\AppResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class RegisteredResponse extends AppResponse
+class RegisteredResponse
 {
     public static function make(string $userId): AppResponse
     {
         return new AppResponse([
             'message' => 'success',
             'user_id' => $userId,
-        ], self::HTTP_CREATED);
+        ], Response::HTTP_CREATED);
     }
 }

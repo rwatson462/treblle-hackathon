@@ -2,32 +2,37 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
+use App\DataTransferObjects\Requests\Auth\LoginRequestDto;
 use App\Events\v1\Auth\UserLoggedIn;
-use App\Http\Requests\v1\Auth\LoginRequest;
-use App\Http\Responses\AppResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
+use function authUser;
+
 class LoginController
 {
-    public function __invoke(LoginRequest $request): AppResponse
+    public function __invoke(LoginRequestDto $data): JsonResponse
     {
-        if (! Auth::attempt($request->validated())) {
-            return new AppResponse([
+        if (! Auth::attempt($data->toArray())) {
+            return new JsonResponse([
                 'message' => 'invalid email/password combination',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        event(new UserLoggedIn(auth()->user()));
+        event(new UserLoggedIn(authUser()));
 
-        $expiry = now()->addMinutes(config('auth.token_timeout'));
+        /** @var int $minutes */
+        $minutes = config('auth.token_timeout');
 
-        $token = request()->user()->createToken(
+        $expiry = now()->addMinutes($minutes);
+
+        $token = authUser()->createToken(
             name: 'authentication',
             expiresAt: $expiry,
         );
 
-        return new AppResponse([
+        return new JsonResponse([
             'message' => 'success',
             'token' => $token->plainTextToken,
             'expires' => $expiry,
