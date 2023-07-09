@@ -40,11 +40,17 @@ class HeadlessModel extends Model
         });
     }
 
+    /**
+     * @return HasOne<User>
+     */
     public function user(): HasOne
     {
         return $this->hasOne(User::class);
     }
 
+    /**
+     * @return HasMany<HeadlessModelInstance>
+     */
     public function instances(): HasMany
     {
         return $this->hasMany(

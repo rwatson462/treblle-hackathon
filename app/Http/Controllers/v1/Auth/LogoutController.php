@@ -9,6 +9,8 @@ class LogoutController
 {
     public function __invoke(): AppResponse
     {
+        assert(auth()->user() !== null);
+
         // Todo: only invalidate the token currently being used (i.e. that which was passed in via Bearer Auth)
         auth()->user()->tokens()->delete();
 

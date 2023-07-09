@@ -11,6 +11,10 @@ final readonly class RegisterAction
         private UserRepository $repository,
     ) { }
 
+    /**
+     * @param array<string,string> $userData
+     * @return string
+     */
     public function execute(array $userData): string
     {
         $user = $this->repository->create($userData);

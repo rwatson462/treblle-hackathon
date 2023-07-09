@@ -7,6 +7,10 @@ use App\Models\User;
 
 class UserRepository
 {
+    /**
+     * @param array<string, string> $userData
+     * @return User
+     */
     public function create(array $userData): User
     {
         try {

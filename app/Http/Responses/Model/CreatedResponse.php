@@ -3,14 +3,15 @@
 namespace App\Http\Responses\Model;
 
 use App\Http\Responses\AppResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class CreatedResponse extends \App\Http\Responses\AppResponse
+class CreatedResponse
 {
     public static function make(string $id): AppResponse
     {
         return new AppResponse([
             'message' => 'created',
             'model_id' => $id,
-        ], static::HTTP_CREATED);
+        ], Response::HTTP_CREATED);
     }
 }

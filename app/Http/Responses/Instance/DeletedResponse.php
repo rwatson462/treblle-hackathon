@@ -1,18 +1,15 @@
 <?php
 
-namespace app\Http\Responses\Instance;
+namespace App\Http\Responses\Instance;
 
 use App\Http\Responses\AppResponse;
 
-class DeletedResponse extends AppResponse
+class DeletedResponse
 {
     public static function make(): AppResponse
     {
-        return new AppResponse(
-            data: [
-                'message' => 'deleted',
-            ],
-            status: self::HTTP_OK
-        );
+        return new AppResponse([
+            'message' => 'deleted',
+        ]);
     }
 }

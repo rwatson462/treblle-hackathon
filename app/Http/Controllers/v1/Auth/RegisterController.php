@@ -16,7 +16,10 @@ class RegisterController
     {
         try {
 
-            $userId = $registerUserAction->execute($request->validated());
+            /** @var array<string,string> $data */
+            $data = $request->validated();
+
+            $userId = $registerUserAction->execute($data);
 
             return RegisteredResponse::make($userId);
 

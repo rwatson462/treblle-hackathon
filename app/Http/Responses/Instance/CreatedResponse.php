@@ -3,8 +3,9 @@
 namespace App\Http\Responses\Instance;
 
 use App\Http\Responses\AppResponse;
+use Symfony\Component\HttpFoundation\Response;
 
-class CreatedResponse extends AppResponse
+class CreatedResponse
 {
     public static function make(string $instanceId): AppResponse
     {
@@ -13,7 +14,7 @@ class CreatedResponse extends AppResponse
                 'message' => 'created',
                 'instance_id' => $instanceId,
             ],
-            status: self::HTTP_CREATED
+            status: Response::HTTP_CREATED
         );
     }
 }

@@ -33,6 +33,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * @return HasMany<HeadlessModel>
+     */
     public function models(): HasMany
     {
         return $this->hasMany(

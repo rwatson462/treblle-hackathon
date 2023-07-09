@@ -7,7 +7,7 @@ use App\Http\Resources\v1\Model\HeadlessModelResource;
 use App\Http\Responses\AppResponse;
 use App\Models\HeadlessModelInstance;
 
-class GetResponse extends AppResponse
+class GetResponse
 {
     public static function make(HeadlessModelInstance $instance): AppResponse
     {

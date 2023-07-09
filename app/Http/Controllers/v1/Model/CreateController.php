@@ -15,8 +15,11 @@ final class CreateController
     {
         try {
 
+            /** @var array<string,string> $data */
+            $data = $request->validated();
+
             return CreatedResponse::make(
-                $createAction->execute($request->validated())
+                $createAction->execute($data)
             );
 
         } catch (DuplicateModelException) {

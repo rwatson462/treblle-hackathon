@@ -4,7 +4,4 @@ namespace App\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
 
-class AppResponse extends JsonResponse
-{
-
-}
+class AppResponse extends JsonResponse {}

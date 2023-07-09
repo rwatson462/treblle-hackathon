@@ -12,17 +12,25 @@ class LoginController
 {
     public function __invoke(LoginRequest $request): AppResponse
     {
-        if (! Auth::attempt($request->validated())) {
+        /** @var array<string,string> $credentials */
+        $credentials = $request->validated();
+
+        if (! Auth::attempt($credentials)) {
             return new AppResponse([
                 'message' => 'invalid email/password combination',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
+        assert(auth()->user() !== null);
+
         event(new UserLoggedIn(auth()->user()));
 
-        $expiry = now()->addMinutes(config('auth.token_timeout'));
+        /** @var int $minutes */
+        $minutes = config('auth.token_timeout');
 
-        $token = request()->user()->createToken(
+        $expiry = now()->addMinutes($minutes);
+
+        $token = auth()->user()->createToken(
             name: 'authentication',
             expiresAt: $expiry,
         );
