@@ -1,19 +1,21 @@
 <?php
 
-namespace App\DataTransferObjects\Requests;
+namespace App\DataTransferObjects\Requests\Auth;
 
-use App\Http\Requests\v1\Auth\LoginRequest;
+use App\Http\Requests\v1\Auth\RegisterRequest;
 
-readonly class LoginRequestDto
+final readonly class RegisterRequestDto
 {
+    public string $name;
     public string $email;
     public string $password;
 
-    public function __construct(LoginRequest $request) {
-
+    public function __construct(RegisterRequest $request)
+    {
         /** @var array<string,string> $data */
         $data = $request->validated();
 
+        $this->name = $data['name'];
         $this->email = $data['email'];
         $this->password = $data['password'];
     }
@@ -24,6 +26,7 @@ readonly class LoginRequestDto
     public function toArray(): array
     {
         return [
+            'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
         ];

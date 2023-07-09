@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1\Model;
 
 use App\Actions\Model\CreateAction;
+use App\DataTransferObjects\Requests\Model\CreateRequestDto;
 use App\Exceptions\DuplicateModelException;
 use App\Http\Requests\v1\Model\CreateRequest;
 use App\Http\Responses\AppResponse;
@@ -11,12 +12,9 @@ use App\Http\Responses\UnprocessableEntityResponse;
 
 final class CreateController
 {
-    public function __invoke(CreateRequest $request, CreateAction $createAction): AppResponse
+    public function __invoke(CreateRequestDto $data, CreateAction $createAction): AppResponse
     {
         try {
-
-            /** @var array<string,string> $data */
-            $data = $request->validated();
 
             return CreatedResponse::make(
                 $createAction->execute($data, authUser())

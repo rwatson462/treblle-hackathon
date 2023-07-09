@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
-use App\DataTransferObjects\Requests\LoginRequestDto;
+use App\DataTransferObjects\Requests\Auth\LoginRequestDto;
 use App\Events\v1\Auth\UserLoggedIn;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +12,9 @@ use function authUser;
 
 class LoginController
 {
-    public function __invoke(LoginRequestDto $request): JsonResponse
+    public function __invoke(LoginRequestDto $data): JsonResponse
     {
-        if (! Auth::attempt($request->toArray())) {
+        if (! Auth::attempt($data->toArray())) {
             return new JsonResponse([
                 'message' => 'invalid email/password combination',
             ], Response::HTTP_UNAUTHORIZED);
