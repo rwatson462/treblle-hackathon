@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
+use App\DataTransferObjects\Requests\LoginRequestDto;
 use App\Events\v1\Auth\UserLoggedIn;
-use App\Http\Requests\v1\Auth\LoginRequest;
-use App\Http\Responses\AppResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController
 {
-    public function __invoke(LoginRequest $request): AppResponse
+    public function __invoke(LoginRequestDto $request): JsonResponse
     {
-        /** @var array<string,string> $credentials */
-        $credentials = $request->validated();
-
-        if (! Auth::attempt($credentials)) {
-            return new AppResponse([
+        if (! Auth::attempt($request->toArray())) {
+            return new JsonResponse([
                 'message' => 'invalid email/password combination',
             ], Response::HTTP_UNAUTHORIZED);
         }
@@ -35,7 +32,7 @@ class LoginController
             expiresAt: $expiry,
         );
 
-        return new AppResponse([
+        return new JsonResponse([
             'message' => 'success',
             'token' => $token->plainTextToken,
             'expires' => $expiry,
