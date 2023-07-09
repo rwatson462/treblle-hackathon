@@ -8,6 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
+use function authUser;
+
 class LoginController
 {
     public function __invoke(LoginRequestDto $request): JsonResponse
@@ -18,16 +20,14 @@ class LoginController
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        assert(auth()->user() !== null);
-
-        event(new UserLoggedIn(auth()->user()));
+        event(new UserLoggedIn(authUser()));
 
         /** @var int $minutes */
         $minutes = config('auth.token_timeout');
 
         $expiry = now()->addMinutes($minutes);
 
-        $token = auth()->user()->createToken(
+        $token = authUser()->createToken(
             name: 'authentication',
             expiresAt: $expiry,
         );

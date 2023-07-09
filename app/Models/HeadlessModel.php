@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
+use function authUser;
+
 /**
  * @property string $id
  * @property string $name
@@ -34,8 +36,8 @@ class HeadlessModel extends Model
 
         static::addGlobalScope(function (Builder $query) {
             // Ensure an authenticated user can only see their models
-            if (auth()->user()) {
-                $query->where('user_id', auth()->user()->id);
+            if (auth()->check()) {
+                $query->where('user_id', authUser()->id);
             }
         });
     }

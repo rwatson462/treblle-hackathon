@@ -19,7 +19,7 @@ final class CreateController
             $data = $request->validated();
 
             return CreatedResponse::make(
-                $createAction->execute($data)
+                $createAction->execute($data, authUser())
             );
 
         } catch (DuplicateModelException) {
