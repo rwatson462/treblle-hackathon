@@ -1,5 +1,5 @@
-![Tests](https://github.com/github/docs/actions/workflows/tests.yml/badge.svg)
-![Code quality](https://github.com/github/docs/actions/workflows/quality.yml/badge.svg)
+![Tests](https://github.com/rwatson462/treblle-hackathon/actions/workflows/tests.yml/badge.svg)
+![Code quality](https://github.com/rwatson462/treblle-hackathon/actions/workflows/quality.yml/badge.svg)
 
 # treblle-hackathon
 Treblle security hackathon code
